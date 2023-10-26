@@ -1,12 +1,19 @@
 import mongoose from "mongoose";
 import { config } from "./config.js";
-import { logger } from "../utils/logger.js";
+import { CustomError } from "../services/error/customError.service.js";
+import { EError } from "../enums/EError.js";
 
 export const connectDB = async () => {
 	try {
 		await mongoose.connect(config.mongo.url);
-		logger.info("base de datos conectada");
+		console.log("base de datos conectada");
 	} catch (error) {
-		logger.fatal(`Hubo un error al conectar la base de datos: ${error}`);
+		const errorMessage = `Hubo un error al conectar la base de datos: ${error.message}`;
+		CustomError.createError({
+			name: "Error en la conxion de la base de datos",
+			cause: errorMessage,
+			message: "Hubo un error en la conexión",
+			errorCode: EError.DATABASE_ERROR,
+		});
 	}
 };

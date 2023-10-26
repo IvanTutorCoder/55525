@@ -1,9 +1,6 @@
 export class CartFiles {
 	constructor() {
-		this.path = path.join(
-			__dirname,
-			`/dao/memory/files/${options.filesystem.carts}`
-		);
+		this.path = path.join(__dirname, `/dao/files/${options.filesystem.carts}`);
 	}
 
 	fileExists() {
@@ -104,6 +101,7 @@ export class CartFiles {
 				throw new Error("El archivo no existe");
 			}
 		} catch (error) {
+			// console.log(error.message);
 			throw new Error(error.message);
 		}
 	}

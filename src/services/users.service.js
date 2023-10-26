@@ -9,23 +9,11 @@ export class UsersService {
 		return usersDao.getUserByEmail(email);
 	}
 
-	static async getUserById(userId) {
-		return usersDao.getUserById(userId);
+	static async getUserById(id) {
+		return usersDao.getUserById(id);
 	}
 
 	static async saveUser(userInfo) {
 		return usersDao.saveUser(userInfo);
-	}
-
-	static async updateUser(userId, newInfo) {
-		return usersDao.updateUser(userId, newInfo);
-	}
-
-	static async delete() {
-		return usersDao.delete();
-	}
-
-	static async deleteUser(userId) {
-		return usersDao.deleteUser(userId);
 	}
 }

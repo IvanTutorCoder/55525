@@ -14,7 +14,6 @@ export const initPassport = () => {
 			},
 			async (req, username, password, done) => {
 				try {
-					console.log("req.file", req.file);
 					const { first_name, last_name } = req.body;
 					const user = await UsersService.getUserByEmail(username);
 					if (user) {
@@ -25,10 +24,6 @@ export const initPassport = () => {
 					if (username.endsWith("@coder.com")) {
 						role = "admin";
 					}
-					let avatar = "";
-					if (req.file) {
-						avatar = req.file.filename;
-					}
 					//si no existe el usuario, guardamos al usuario en la base de datos
 					const newUser = {
 						first_name,
@@ -37,7 +32,6 @@ export const initPassport = () => {
 						age: req.body.age,
 						password: createHash(password),
 						role,
-						avatar,
 					};
 					const createdUser = await UsersService.saveUser(newUser);
 					return done(null, createdUser);
@@ -65,8 +59,6 @@ export const initPassport = () => {
 					if (!validPassword(password, user)) {
 						return done(null, false);
 					}
-					user.last_connection = new Date();
-					await UsersService.updateUser(user._id, user);
 					return done(null, user);
 				} catch (error) {
 					return done(error);
@@ -82,6 +74,6 @@ export const initPassport = () => {
 
 	passport.deserializeUser(async (id, done) => {
 		const user = await UsersService.getUserById(id);
-		return done(null, user);
+		return done(null, user); //req.user=user
 	});
 };

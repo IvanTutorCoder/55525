@@ -14,13 +14,4 @@ export class ViewsController {
 	static renderProfile = (req, res) => {
 		res.render("profile", { user: req.user });
 	};
-
-	static forgotPass = (req, res) => {
-		res.render("forgotPassword");
-	};
-
-	static resetPassword = (req, res) => {
-		const token = req.query.token;
-		res.render("resetPass", { token });
-	};
 }

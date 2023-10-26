@@ -5,24 +5,9 @@ import { checkRoles, checkUserAuthenticatedView } from "../middlewares/auth.js";
 const router = Router();
 
 router.get("/", ProductsController.getProducts);
-router.get("/:pid", ProductsController.getProductById);
-router.post(
-	"/",
-	checkUserAuthenticatedView,
-	checkRoles(["admin", "premium"]),
-	ProductsController.createProduct
-);
-router.put(
-	"/:id",
-	checkUserAuthenticatedView,
-	checkRoles(["admin"]),
-	ProductsController.updateProduct
-);
-router.delete(
-	"/:id",
-	checkUserAuthenticatedView,
-	checkRoles(["admin", "premium"]),
-	ProductsController.deleteProduct
-);
+router.get("/:pid", ProductsController.getProduct);
+router.post("/", checkUserAuthenticatedView, checkRoles(["admin"]), ProductsController.createProduct);
+router.put("/:id", checkUserAuthenticatedView, checkRoles(["admin"]), ProductsController.updateProduct);
+router.delete("/:id", checkUserAuthenticatedView, checkRoles(["admin"]), ProductsController.deleteProduct);
 
-export { router as productsRouter };
+export { router as productsRouter};

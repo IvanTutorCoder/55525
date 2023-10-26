@@ -1,4 +1,4 @@
-import { productsModel } from "./models/products.model.js";
+import { productsModel } from "../models/products.model.js";
 
 export class ProductsMongo {
 	constructor() {
@@ -51,13 +51,8 @@ export class ProductsMongo {
 
 	async deleteProduct(id) {
 		try {
-			const product = await this.model.findById(id);
-			if (!product) {
-				throw new Error("El producto no existe");
-			}
-
 			await this.model.findByIdAndDelete(id);
-			return "Producto eliminado";
+			return { message: "producto eliminado" };
 		} catch (error) {
 			throw new Error(`Error al eliminar el producto ${error.message}`);
 		}

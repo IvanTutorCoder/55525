@@ -11,7 +11,7 @@ const emailTemplate = `<div>
 //Estructura del correo
 const mailOptions = {
 	from: "ecommerce",
-	to: config.gmail.marketingEmail,
+	to: config.gmail.marketingEmails,
 	subject: "Registro exitoso",
 	html: emailTemplate,
 };
